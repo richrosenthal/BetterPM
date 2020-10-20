@@ -4,6 +4,7 @@ class CreateTasks < ActiveRecord::Migration[6.0]
       t.string :description
       t.boolean :completion
       t.string :tools_needs
+      t.belongs_to :equipment
 
       t.timestamps
     end
