@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   fetchEquipment();
-
+  createEquipment();
+  equipmentFormSubmission();
 })
 
 
@@ -26,9 +27,23 @@ function fetchEquipment(){
 // create a new piece of equipment
 
 function createEquipment(){
+  let equipmentForm = document.getElementById("equipment-form")
+
+  equipmentForm.innerHTML +=
+  `
+  <form>
+  Name:  <input type="text id="name">
+  <input type="submit" value="Add equipment">
+  </form
+  `
+
+ equipmentForm.addEventListener("submit", equipmentFormSubmission)
 
 }
+function equipmentFormSubmission(){
+  
 
+}
 // delete equipment
 
 function deleteEquipment(){
