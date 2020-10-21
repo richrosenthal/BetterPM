@@ -5,3 +5,4 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Equipment.create(name: "Mitutoyo Caliper", description: "12\" Caliper", location: "Receiving Inspection", department: "QA")
