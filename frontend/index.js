@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   fetchEquipment();
   createEquipment();
-  equipmentFormSubmission();
+
 })
 
 
@@ -28,11 +28,11 @@ function fetchEquipment(){
 
 function createEquipment(){
   let equipmentForm = document.getElementById("equipment-form")
-
+  //add the rest of form (name, description, etc)
   equipmentForm.innerHTML +=
   `
   <form>
-  Name:  <input type="text id="name">
+  Name:  <input type="text" id="name">
   <input type="submit" value="Add equipment">
   </form
   `
@@ -41,8 +41,28 @@ function createEquipment(){
 
 }
 function equipmentFormSubmission(){
-  
+  event.preventDefault();
+  let name = document.getElementById("name").value
+  //add the rest of variables per model
 
+  let equipment = {
+    name: name
+  }
+
+  fetch(`${BASE_URL}/equipment`, {
+    method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(equipment)
+  })
+  .then(resp =>  resp.json())
+  .then (equipment => {
+    let e = new Equipment(equipment.id, equipment.name,
+      equipment.description, equipment.location, equipment.department)
+    e.renderEquipment();
+  })
 }
 // delete equipment
 
