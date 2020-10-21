@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   fetchEquipment();
+
 })
 
 
@@ -13,11 +14,11 @@ function fetchEquipment(){
   .then(equipments => {
 
     for (const equipment of equipments){
-      console.log("rails obj", equipment)
+
       let e = new Equipment(equipment.id, equipment.name,
         equipment.description, equipment.location, equipment.department)
+      e.renderEquipment();
 
-      console.log(e)
     }
   })
 }
