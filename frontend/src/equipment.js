@@ -13,25 +13,27 @@ class Equipment{
 
     equipmentDiv.innerHTML +=
     `
-    <ul>
-      <h3>${this.id}</h3>
-      <li>
-        <label>Name</label>
+    <tr>
+      <th>${this.id}</th>
+      <th>
+
         ${this.name}
-      </li>
-      <li>
-        <label>Description</label>
+      </th>
+      <th>
+
         ${this.description}
-      </li>
-      <li>
-        <label>Location</label>
+      </th>
+      <th>
+
         ${this.location}
-      </li>
-      <li>
-        <label>Department</label>
+      </th>
+      <th>
+
         ${this.Deparment}
-      </li>
-    </ul>
+      </th>
+    </tr>
+    <button class="delete-button" data-id=${this.id} onclick="deleteEquipment()">Delete EQ</button>
+    <br>
     `
   }
 }
