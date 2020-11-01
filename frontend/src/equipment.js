@@ -29,11 +29,15 @@ class Equipment{
       </th>
       <th>
 
-        ${this.Deparment}
+        ${this.department}
       </th>
     </tr>
     <button class="delete-button" data-id=${this.id} onclick="deleteEquipment()">Delete EQ</button>
     <br>
     `
+
+
   }
+
+
 }
