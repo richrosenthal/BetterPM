@@ -2,27 +2,36 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchEquipment();
   createEquipment();
 
+
+
 })
 
 
-const BASE_URL = "http://localhost:3000/"
-//read - fetch equipment
+const BASE_URL = "http://localhost:3000"
+//read - fetch equipment with tasks
 
 function fetchEquipment(){
   console.log("here")
-  fetch(`${BASE_URL}/equipment`)
+  fetch(`${BASE_URL}/equipment.json`)
   .then(resp =>resp.json())
   .then(equipments => {
 
     for (const equipment of equipments){
 
       let e = new Equipment(equipment.id, equipment.name,
-        equipment.description, equipment.location, equipment.department)
+        equipment.description, equipment.location, equipment.department, equipment.tasks)
+
+      for (const task of e.tasks){
+        let t = new Task(task.id, task.description, task.completion, task.tools_needs)
       e.renderEquipment();
+      t.renderTask();
+      debugger;
+      }
 
     }
   })
 }
+
 
 // create a new piece of equipment
 
@@ -64,8 +73,18 @@ function equipmentFormSubmission(){
     e.renderEquipment();
   })
 }
+
+//createTask
+
+
+
 // delete equipment
 
 function deleteEquipment(){
-
+  let buttons = document.getElementsByClassName(".delete-button")
+  for (const button of buttons){
+    button.addEventListener("click", () => {
+      debugger;
+    })
+  }
 }
