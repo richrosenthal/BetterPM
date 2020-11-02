@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   fetchEquipment();
   createEquipment();
+  createTask();
 
 
 
@@ -21,12 +22,10 @@ function fetchEquipment(){
       let e = new Equipment(equipment.id, equipment.name,
         equipment.description, equipment.location, equipment.department, equipment.tasks)
 
-      for (const task of e.tasks){
-        let t = new Task(task.id, task.description, task.completion, task.tools_needs)
+
       e.renderEquipment();
-      t.renderTask();
-      debugger;
-      }
+
+
 
     }
   })
@@ -40,22 +39,54 @@ function createEquipment(){
   //add the rest of form (name, description, etc)
   equipmentForm.innerHTML +=
   `
+  <h1>Add Equipment</h1>
   <form>
   Name:  <input type="text" id="name">
+  Description:  <input type="text" id="description">
+  Location:  <input type="text" id="location">
+  Department:  <input type="text" id="department">
   <input type="submit" value="Add equipment">
-  </form
+  </form>
   `
 
  equipmentForm.addEventListener("submit", equipmentFormSubmission)
 
 }
+
+
+function createTask(){
+  let taskForm = document.getElementById("task-form")
+  //add the rest of form (name, description, etc)
+  taskForm.innerHTML +=
+  `
+  <h1>Add Task</h1>
+  <form>
+  Equipemnt ID # <input type="text" id="equipment_id">
+  Description:  <input type="text" id="description">
+  Tools Needed:  <input type="text" id="tools_needs">
+  <input type="submit" value="Add Task">
+  </form>
+  `
+
+ equipmentForm.addEventListener("submit", equipmentFormSubmission)
+
+}
+
+
+
 function equipmentFormSubmission(){
   event.preventDefault();
   let name = document.getElementById("name").value
+  let description = document.getElementById("description").value
+  let location = document.getElementById("location").value
+  let department = document.getElementById("department").value
   //add the rest of variables per model
 
   let equipment = {
-    name: name
+    name: name,
+    description: description,
+    location: location,
+    department: department
   }
 
   fetch(`${BASE_URL}/equipment`, {
@@ -74,7 +105,7 @@ function equipmentFormSubmission(){
   })
 }
 
-//createTask
+
 
 
 
