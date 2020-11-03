@@ -29,11 +29,11 @@ class Task{
       </th>
 
     </tr>
-    <button class="delete-button" data-id=${this.id} onclick="deleteEquipment()">Delete Task</button>
+    <button class="delete-button" data-id=${this.id} onclick="deleteTask()">Delete Task</button>
     <br>
 
 
-    
+
     `
 
 
