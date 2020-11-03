@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   createEquipment();
   createTask();
 
-
-
 })
 
 
@@ -24,9 +22,6 @@ function fetchEquipment(){
 
 
       e.renderEquipment();
-
-
-
     }
   })
 }
@@ -62,13 +57,13 @@ function createTask(){
   <h1>Add Task</h1>
   <form>
   Equipemnt ID # <input type="text" id="equipment_id">
-  Description:  <input type="text" id="description">
+  Description:  <input type="text" id="task_description">
   Tools Needed:  <input type="text" id="tools_needs">
   <input type="submit" value="Add Task">
   </form>
   `
 
- equipmentForm.addEventListener("submit", equipmentFormSubmission)
+ taskForm.addEventListener("submit", taskFormSubmission)
 
 }
 
@@ -80,13 +75,14 @@ function equipmentFormSubmission(){
   let description = document.getElementById("description").value
   let location = document.getElementById("location").value
   let department = document.getElementById("department").value
-  //add the rest of variables per model
+  let task_description = document.getElementById("task_description").value
 
   let equipment = {
     name: name,
     description: description,
     location: location,
-    department: department
+    department: department,
+
   }
 
   fetch(`${BASE_URL}/equipment`, {
@@ -105,6 +101,36 @@ function equipmentFormSubmission(){
   })
 }
 
+function taskFormSubmission(){
+  event.preventDefault();
+  let equipment_id = document.getElementById("equipment_id").value
+  let description = document.getElementById("task_description").value
+  let tools_needs = document.getElementById("tools_needs").value
+
+  let task = {
+    equipment_id: equipment_id,
+    description: description,
+    tools_needs: tools_needs,
+
+  }
+
+  fetch(`${BASE_URL}/tasks`, {
+    method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(task)
+  })
+  .then(resp =>  resp.json())
+  .then (task => {
+    let t = new Task(task.id, task.description, task.completion,
+      task.tools_needs, task.equipment_id)
+    t.renderTask();
+
+  })
+}
+
 
 
 
@@ -112,10 +138,25 @@ function equipmentFormSubmission(){
 // delete equipment
 
 function deleteEquipment(){
-  let buttons = document.getElementsByClassName(".delete-button")
-  for (const button of buttons){
-    button.addEventListener("click", () => {
-      debugger;
-    })
-  }
+
+  let equipmentId = parseInt(event.target.dataset.id);
+
+  fetch(`${BASE_URL}/equipment/${equipmentId}`, {
+    method: 'DELETE'
+  })
+
+  this.location.reload()
+}
+
+// delete task
+
+function deleteTask(){
+
+  let taskId = parseInt(event.target.dataset.id);
+
+  fetch(`${BASE_URL}/tasks/${taskId}`, {
+    method: 'DELETE'
+  })
+
+  this.location.reload()
 }
