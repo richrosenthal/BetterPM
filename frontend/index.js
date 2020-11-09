@@ -15,6 +15,14 @@ function fetchEquipment(){
   .then(resp =>resp.json())
   .then(equipments => {
 
+    equipments.sort(function(a, b){
+    var x = a.name.toLowerCase();
+    var y = b.name.toLowerCase();
+    if (x < y) {return -1;}
+    if (x > y) {return 1;}
+    return 0;
+  })
+
     for (const equipment of equipments){
 
       let e = new Equipment(equipment.id, equipment.name,
@@ -25,6 +33,32 @@ function fetchEquipment(){
     }
   })
 }
+
+
+// var items = [
+//   { name: 'Edward', value: 21 },
+//   { name: 'Sharpe', value: 37 },
+//   { name: 'And', value: 45 },
+//   { name: 'The', value: -12 },
+//   { name: 'Magnetic', value: 13 },
+//   { name: 'Zeros', value: 37 }
+// ];
+//
+// // sort by value
+// items.sort(function (a, b) {
+//   return a.value - b.value;
+// });
+//
+// // sort by name
+// items.sort(function(a, b) {
+//   var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+//   var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+//   if (nameA < nameB) {
+//     return -1;
+//   }
+//   if (nameA > nameB) {
+//     return 1;
+//   }
 
 
 // create a new piece of equipment
@@ -127,6 +161,7 @@ function taskFormSubmission(){
     let t = new Task(task.id, task.description, task.completion,
       task.tools_needs, task.equipment_id)
     t.renderTask();
+
 
   })
 }
